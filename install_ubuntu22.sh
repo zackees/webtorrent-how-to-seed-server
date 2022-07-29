@@ -10,12 +10,16 @@ npm install -g node-pre-gyp webtorrent-cli webtorrent-hybrid pm2
 
 cat > seeder.js <<'_EOF'
 const { exec } = require('child_process')
-const FILE1 = "movie.mp4"
-[
+const FILE1 = "file.mp4"
+const FILES = [
   FILE1
-].forEach(file => {
-  const cmd = `webtorrent-hybrid seed ${file} --keep-seeding --port 80 -q`
+]
+
+FILES.forEach(file => {
+  const cmd = `webtorrent-hybrid seed ${file} --keep-seeding --port 80 -q > ${file}.magnet`
+  console.log(`Generating magnet for ${file}`)
   exec(cmd, (error, stdout, stderr) => {
+    console.log(`Finished ${file}`)
     if (error) {
       console.error("error", error.message)
       return;
@@ -29,5 +33,7 @@ const FILE1 = "movie.mp4"
   })
 })
 _EOF
+
+
 
 
