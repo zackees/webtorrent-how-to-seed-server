@@ -1,0 +1,65 @@
+<html>
+
+<style>
+  video {
+    width: 100%;
+    height: 100%;
+  }
+
+</style>
+
+<body>
+  <section>
+    <h1 id="info">Movie player loading....</h1>
+    <div id="content"></div>
+  </section>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
+<script>
+  const client = new WebTorrent()
+  // get the current time
+  const time = new Date().getTime()  // Used to print out load time.
+
+  //
+  // REPLACE THIS WITH YOUR MAGNET URI!!!!
+  const magneturi = 'REPLACE THIS WITH YOUR MAGNET URI'
+  //
+  //
+
+  const torrent = client.add(magneturi, () => {
+    console.log('ON TORRENT STARTED')
+  })
+
+  console.log("created torrent")
+
+  torrent.on('warning', console.warn)
+  torrent.on('error', console.error)
+  /*
+  torrent.on('download', console.log)
+  torrent.on('upload', console.log)
+  */
+
+  torrent.on('warning', (a) => { console.warn(`warning: ${a}`) })
+  torrent.on('error', (a) => { console.error(`error: ${a}`) })
+  //torrent.on('download', (a) => { console.log(`download: ${a}`) })
+  //torrent.on('upload', (a) => { console.log(`upload: ${a}`) })
+
+
+  torrent.on('ready', () => {
+    document.getElementById("info").innerHTML = "Movie name: " + torrent.name
+    console.log('Torrent loaded!')
+    console.log('Torrent name:', torrent.name)
+    console.log('Found at:', new Date().getTime() - time, " in the load")
+    console.log(`Files:`)
+    torrent.files.forEach(file => {
+      console.log('- ' + file.name)
+    })
+    // Torrents can contain many files. Let's use the .mp4 file
+    const file = torrent.files.find(file => file.name.endsWith('.mp4'))
+    // Display the file by adding it to the DOM
+    file.appendTo('body', { muted: true, autoplay: true })
+  })
+</script>
+
+</html>
