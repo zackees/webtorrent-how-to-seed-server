@@ -41,7 +41,7 @@ And it will return something like `wormhole receive waddle-coffee-pancake`, past
 
 Start seeding by using the following command:
 
-`webtorrent-hybrid seed myfile --keep-seeding --port 80 -q`
+`webtorrent-hybrid seed movie.mp4 --keep-seeding --port 80 -q`
 
 And wait for the magnet uri to be printed. Save the magnet uri.
 
