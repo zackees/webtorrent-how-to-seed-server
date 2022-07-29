@@ -6,7 +6,7 @@ apt install python3 python3-pip npm nodejs -y
 pip install magic-wormhole
 
 # Installs webtorrent components
-npm install -g node-pre-gyp webtorrent-cli webtorrent-hybrid
+npm install -g node-pre-gyp webtorrent-cli webtorrent-hybrid 
 
 cat > seeder.js <<'_EOF'
 const { exec } = require('child_process')
@@ -30,4 +30,4 @@ const FILE1 = "movie.mp4"
 })
 _EOF
 
-echo now edit seeder.js and when the service is ready run pm2 start seeder.js && pm2 save
+
