@@ -17,7 +17,7 @@ const FILES = [
 
 FILES.forEach(file => {
   const cmd = `webtorrent-hybrid seed ${file} --keep-seeding --port 80 -q > ${file}.magnet`
-  console.log(`Running: "${cmd}`)
+  console.log(`Running: ${cmd}`)
   exec(cmd, (error, stdout, stderr) => {
     if (error) {
       console.error("error", error.message)
