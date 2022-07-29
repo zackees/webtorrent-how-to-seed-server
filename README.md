@@ -2,6 +2,7 @@ Webtorrent How To: Create a Seed-Server
 =======================================
 
 Want to know how to serve a video reliably over the internet using webtorrent? This is how you do it.
+If you like this content, consider giving this repo a star.
 
 # Step 1: Get a VPS on Digital Ocean
 
