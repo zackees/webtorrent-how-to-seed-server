@@ -8,24 +8,23 @@ If you like this content, consider giving this repo a star.
 
 Get the cheapest one, which will have 10GB of storage ($7 for 25GB), which is plenty to start out with. Once you have this machine up and running, use the access console to ssh into the machine through the web browser (or ssh if you know how to configure your keys).
 
-Run this to install the following dependencies on the VPS.
+# Step 2: Install all dependencies to VPS
+
+Run this to install the following dependencies on the VPS. Tested on Ubuntu 20.04LTS.
 
 Copy and paste this into a terminal:
 ```bash
 apt update
-apt install python3 python3-pip npm -y
-npm install node -g
+apt install python3 python3-pip npm nodejs -y
 pip install magic-wormhole
 
-# This should return something like v18.7.0
-node --version
-# This should return something like python 3.10.4
-python3 --version
+# Installs webtorrent components
+npm install -g node-pre-gyp webtorrent-cli webtorrent-hybrid
 ```
 
-Make sure that you have python installed on your own computer (Windows/MacOS/Ubuntu), because we will use it later.
+Make sure that you have python installed on your own computer (Windows/MacOS/Ubuntu), because we will use it later to upload the file.
 
-# Step 2: Upload your content to the VPS
+# Step 3: Upload your content to the VPS
 
 Make sure that you have python installed on both your VPS and your home computer.
 
@@ -41,12 +40,9 @@ wormhole send movie.mp4
 ```
 And it will return something like `wormhole receive waddle-coffee-pancake`, paste this exactly into the remote computer and the file will be uploaded to the server.
 
-# Step 3: Install webtorrent-hybrid, which will act as the seeding server
+# Step 4: Run webtorrent-hybrid, which will act as the seeding server
 
-On the remote machine install the webtorrent-hybrid command:
-`npm install -g node-pre-gyp webtorrent-cli webtorrent-hybrid` and hit enter.
-
-Once that is installed you should test seeding by using the following command:
+Start seeding by using the following command:
 
 `webtorrent-hybrid seed myfile --keep-seeding --port 80 -q`
 
@@ -56,7 +52,7 @@ Now test this link by pasting it into [instant.io](https://instant.io) and verif
 
 Congrats! Now you have a magnet uri that will work (most) everywhere. However we aren't done yet. As soon as your close your SSH session your seeding process will also be killed. To make a service which will always be alive, go to the next step.
 
-# Step 4: Using `pm2` to create an always on seeder service.
+# Step 5: Using `pm2` to create an always on seeder service.
 
 Creating a system service *normally* requires intermediate unix admin skills. Luckily this has all been made too easy with the excellent tool called `pm2`. So let's install it: `npm install -g pm2`
 
@@ -92,7 +88,7 @@ That's it! To check that the service is running you can do `pm2 ls` and check th
 
 **Congrats!** You now have an always on seeding service. You can confirm this by issuing a restart command to your VPS and notice both the app.js process is running using `pm2 ls`.
 
-# Step 5: An HTML/JS video player
+# Step 6: An HTML/JS video player
 
 Remember that magnet uri I told you to remember? You are going to use it here. Replace `magneturi` with yours.
 
