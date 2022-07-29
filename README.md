@@ -14,13 +14,10 @@ Run this to install the following dependencies on the VPS. Tested on Ubuntu 20.0
 
 Copy and paste this into a terminal:
 ```bash
-apt update
-apt install python3 python3-pip npm nodejs -y
-pip install magic-wormhole
-
-# Installs webtorrent components
-npm install -g node-pre-gyp webtorrent-cli webtorrent-hybrid
+curl -sL https://raw.githubusercontent.com/zackees/webtorrent-how-to-seed-server/main/install_ubuntu22.sh | sudo -E bash -
 ```
+
+Notice that `seeder.js` has now appeared in the current directory.
 
 Make sure that you have python installed on your own computer (Windows/MacOS/Ubuntu), because we will use it later to upload the file.
 
@@ -56,27 +53,27 @@ Congrats! Now you have a magnet uri that will work (most) everywhere. However we
 
 Creating a system service *normally* requires intermediate unix admin skills. Luckily this has all been made too easy with the excellent tool called `pm2`. So let's install it: `npm install -g pm2`
 
-In the current VPS shell, make a new file: `nano ./app.js` and edit it so that it has the following:
+In the current VPS shell, make a new file: `nano ./seeder.js` and edit it so that it has the following:
 
 ```js
 const { exec } = require('child_process')
-//
-// EDIT THIS
-const FILE_PATH = "movie.mp4"
-//
-//
-const CMD = `webtorrent-hybrid seed ${FILE_PATH} --keep-seeding --port 80 -q`
-exec(CMD, (error, stdout, stderr) => {
-  if (error) {
-    console.error("error", error.message)
-    return;
-  }
-  if (stderr) {
-    console.error(stderr)
-  }
-  if (stdout) {
-    console.log(stdout)
-  }
+const FILE1 = "movie.mp4"
+[
+  FILE1
+].forEach(file => {
+  const cmd = `webtorrent-hybrid seed ${file} --keep-seeding --port 80 -q`
+  exec(cmd, (error, stdout, stderr) => {
+    if (error) {
+      console.error("error", error.message)
+      return;
+    }
+    if (stderr) {
+      console.error(stderr)
+    }
+    if (stdout) {
+      console.log(stdout)
+    }
+  })
 })
 ```
 
