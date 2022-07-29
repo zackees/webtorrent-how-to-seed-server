@@ -1,4 +1,5 @@
-# Who is this for
+Webtorrent How To: Create a Seed-Server
+=======================================
 
 Want to know how to serve a video reliably over the internet using webtorrent? This is how you do it.
 
@@ -29,7 +30,7 @@ Make sure that you have python installed on both your VPS and your home computer
 
 Next prepare the content for serving, let's call it `movie.mp4`. We will use `magic-wormhole` on both server and local computer to transfer the file, since that's the easiest way I've found it to work.
 
-## Magic Wormhole to transfer the file
+#### Magic Wormhole to transfer the file
 
 On your local machine install magic-wormhole: `pip install magic-wormhole`.
 
