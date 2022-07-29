@@ -53,7 +53,7 @@ Congrats! Now you have a magnet uri that will work (most) everywhere. However we
 
 Creating a system service *normally* requires intermediate unix admin skills. Luckily this has all been made too easy with the excellent tool called `pm2`. So let's install it: `npm install -g pm2`
 
-In the current VPS shell, make a new file: `nano ./seeder.js` and edit it so that it has the following:
+In the current VPS shell, make a new file: `nano ./seeder.js` and edit it so that it has the `FILE1` now points to the correct file:
 
 ```js
 const { exec } = require('child_process')
