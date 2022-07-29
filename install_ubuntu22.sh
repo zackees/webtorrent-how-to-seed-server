@@ -10,7 +10,7 @@ npm install -g node-pre-gyp webtorrent-cli webtorrent-hybrid pm2
 
 cat > seeder.js <<'_EOF'
 const { exec } = require('child_process')
-const FILE1 = "cost_rica_4k_60fps.mp4"
+const FILE1 = "movie.mp4"
 const FILES = [
   FILE1
 ]
